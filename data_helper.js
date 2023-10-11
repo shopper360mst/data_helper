@@ -6,6 +6,20 @@ export default class DataHelper {
         this.COOKIE_NAME = 'COOKIE_NAME';        
     }
     /**
+     * set a new timeout value for axios.
+     * @param {Number} value the timeout.
+     */
+    setTimeout(value) {
+        this.TIMEOUT = value;
+    }
+    /**
+     * sets a new cookie name.
+     * @param {String} value the cookie name.
+     */
+    setCookieName(value) {
+        this.COOKIE_NAME = value;
+    }
+    /**
      * Generates a cross api way of connection.
      * @returns {Object} object needed for header formation.
      */
