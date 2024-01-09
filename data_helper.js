@@ -17,7 +17,7 @@ export default class DataHelper {
      * @param {String} value the cookie name.
      */
     setCookieName(value) {
-        this.COOKIE_NAME = value;
+        this.COOKIE_NAME = value;        
     }
     /**
      * Generates a cross api way of connection.
@@ -28,6 +28,52 @@ export default class DataHelper {
             "Content-Type" : "application/json",
             "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
         };
+    }
+    /**
+     * a standard axios promise based ajax for put.
+     * @param {String} url the url to put.
+     * @param {Object} param param payload.  
+     * @param {Object} customHeader custom header as object.
+     * @return {Promise} to be handled with thenc (then-catch-then).  
+     * 
+     */
+    async putTo(url, param, customHeader = null) {
+        var headerInfo = {};
+        if (!customHeader) {
+            headerInfo = { "timeout": this.TIMEOUT };
+        } else {
+            if (customHeader == "auto") {
+                customHeader = {
+                    "Content-Type" : "application/json",
+                    "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
+                }
+            }
+            headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
+        }
+        return await axios.put(url, JSON.stringify(param), headerInfo);
+    }
+    /**
+     * a standard axios promise based ajax for delete.
+     * @param {String} url the url to delete.
+     * @param {Object} param param payload.  
+     * @param {Object} customHeader custom header as object.
+     * @return {Promise} to be handled with thenc (then-catch-then).  
+     * 
+     */
+    async delete(url, param, customHeader = null) {
+        var headerInfo = {};
+        if (!customHeader) {
+            headerInfo = { "timeout": this.TIMEOUT };
+        } else {
+            if (customHeader == "auto") {
+                customHeader = {
+                    "Content-Type" : "application/json",
+                    "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
+                }
+            }
+            headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
+        }
+        return await axios.delete(url, {data:JSON.stringify(param)}, headerInfo);
     }
     /**
      * a standard axios promise based ajax for post.
@@ -195,12 +241,22 @@ export default class DataHelper {
      * broadcast - a universa dispatch event, used to update specific listening UI.
      * @param {String} uxname  of the cookie.
      */    
-    broadCast (uxname, param) {
-        window.dispatchEvent(
-            new CustomEvent(uxname, {
-                bubbles: true,
-                detail: { data: param },
-            })
-        ); 
+    broadCast (uxname, param, origin) {
+        if (arguments.length > 2) {
+            origin.dispatchEvent(
+                new CustomEvent(uxname, {
+                    bubbles: true,
+                    detail: { data: param },
+                })
+            ); 
+        } else {
+            window.dispatchEvent(
+                new CustomEvent(uxname, {
+                    bubbles: true,
+                    detail: { data: param },
+                })
+            ); 
+        }
+        
     }
 }
