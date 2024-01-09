@@ -50,7 +50,7 @@ export default class DataHelper {
             }
             headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
         }
-        return await axios.put(url, JSON.stringify(param), headerInfo);
+        return await axios.put(url, {data:param}, headerInfo);
     }
     /**
      * a standard axios promise based ajax for delete.
@@ -73,7 +73,7 @@ export default class DataHelper {
             }
             headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
         }
-        return await axios.delete(url, {data:JSON.stringify(param)}, headerInfo);
+        return await axios.delete(url, {data:param}, headerInfo);
     }
     /**
      * a standard axios promise based ajax for post.
