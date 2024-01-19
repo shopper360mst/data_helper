@@ -84,7 +84,7 @@ export default class DataHelper {
      */
     async postDataFormTo(url, param ) {
         var customHeader = {'Content-Type': 'multipart/form-data'};
-        return await axios.post(url, { data: param } , 
+        return await axios.post(url, param , 
             { "headers": customHeader }    
         );
     }

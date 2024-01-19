@@ -1,6 +1,6 @@
 {
   "name": "@shopper360mst/data_helper",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "A standard library with axios",
   "main": "data_helper.js",
   "scripts": {
