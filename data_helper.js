@@ -76,6 +76,20 @@ export default class DataHelper {
         return await axios.delete(url, {data:param}, headerInfo);
     }
     /**
+     * a custom axios promise based ajax for post dedicated for form data.
+     * @param {String} url the url to post.
+     * @param {Object} param param payload.  
+     * @return {Promise} to be handled with thenc (then-catch-then).  
+     * 
+     */
+    async postDataFormTo(url, param ) {
+        var customHeader = {'Content-Type': 'multipart/form-data'};
+        return await axios.post(url, { data: param } , 
+            { "headers": customHeader }    
+        );
+    }
+
+    /**
      * a standard axios promise based ajax for post.
      * @param {String} url the url to post.
      * @param {Object} param param payload.  
