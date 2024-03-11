@@ -120,6 +120,23 @@ export default class DataHelper {
     getBakedCookie(ckname) {
         return this.getCookie(ckname).split('-')[1];
     }
+     /**
+     * a standard axios promise based ajax for get.
+     * @param {String} url the url to post.
+     * @param {Object} param the param to send get to.
+     * @param {Object} customHeader custom header as object.
+     * @return {Promise} to be handled with thenc (then-catch-then).  
+     * 
+     */
+     async getWithParamFrom(url, params, customHeader = null) {
+        if (customHeader == "auto") {
+            customHeader = {
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
+            }
+        }
+        return await axios.get(url, {params:params}, customHeader)
+    }
     /**
      * a standard axios promise based ajax for get.
      * @param {String} url the url to post.
