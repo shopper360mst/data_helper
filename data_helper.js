@@ -3,7 +3,8 @@ export default class DataHelper {
     constructor() { 
         var _this = this;
         this.TIMEOUT = 8500;
-        this.COOKIE_NAME = 'COOKIE_NAME';        
+        this.COOKIE_NAME = 'COOKIE_NAME';
+        this.BAKEMODE = true;        
     }
     /**
      * set a new timeout value for axios.
@@ -18,6 +19,13 @@ export default class DataHelper {
      */
     setCookieName(value) {
         this.COOKIE_NAME = value;        
+    }
+    /**
+     * sets a cookie name bake mode.
+     * @param {Boolean} value the boolean.
+     */
+    setBakeMode(value) {
+        this.BAKEMODE = value;        
     }
     /**
      * Generates a cross api way of connection.
@@ -79,11 +87,21 @@ export default class DataHelper {
      * a custom axios promise based ajax for post dedicated for form data.
      * @param {String} url the url to post.
      * @param {Object} param param payload.  
+     * @param {Object} customHeader custom header as object.
      * @return {Promise} to be handled with thenc (then-catch-then).  
      * 
      */
-    async postDataFormTo(url, param ) {
-        var customHeader = {'Content-Type': 'multipart/form-data'};
+    async postDataFormTo(url, param, customHeader = null) {
+        if (customHeader == "auto") {
+            customHeader = {
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
+            }
+        } else {
+            customHeader = {
+                'Content-Type': 'multipart/form-data',
+            };
+        }
         return await axios.post(url, param , 
             { "headers": customHeader }    
         );
@@ -118,7 +136,11 @@ export default class DataHelper {
      * @returns {String} the cookie session.
      */
     getBakedCookie(ckname) {
-        return this.getCookie(ckname).split('-')[1];
+        if (!this.BAKEMODE) {
+            return this.getCookie(ckname);    
+        } else {
+            return this.getCookie(ckname).split('-')[1];
+        }
     }
      /**
      * a standard axios promise based ajax for get.
