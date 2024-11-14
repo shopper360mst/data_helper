@@ -202,7 +202,7 @@ export default class DataHelper {
         } else {
             headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
         }
-        return await axios.get(url, {params:params}, customHeader)
+        return await axios.get(url, {params:params}, headerInfo)
     }
     /**
      * a standard axios promise based ajax for get.
@@ -229,7 +229,7 @@ export default class DataHelper {
         } else {
             headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
         }
-        return await axios.get(url, customHeader)
+        return await axios.get(url, headerInfo)
     }
      /**
      * convert number into string with formatted comma.
