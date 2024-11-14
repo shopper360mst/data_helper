@@ -79,28 +79,27 @@ export default class DataHelper {
      * 
      */
     async delete(url, param, customHeader = null) {
-        var headerInfo = {};
         if (!customHeader) {
             headerInfo = { "timeout": this.TIMEOUT };
         } else {
             if (customHeader == "auto") {
                 customHeader = {
-                    "Content-Type" : "application/json",
                     "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
                 }
-                headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
             } else if (customHeader.indexOf("form-") > -1) {
                 let elem = customHeader.split("-")[1];
                 customHeader = {
-                    "Content-Type" : "application/json",
                     "Authorization" : "Bearer " + document.getElementById(elem).value 
                 }
-                headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
             } else {
-                headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
             }
         }
-        return await axios.delete(url, {data:param}, headerInfo);
+
+        let config = { 
+            headers:customHeader,
+            data: param 
+        }
+        return await axios.delete(url, config );
     }
     /**
      * a custom axios promise based ajax for post dedicated for form data.
