@@ -55,8 +55,16 @@ export default class DataHelper {
                     "Content-Type" : "application/json",
                     "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
                 }
+            } else if (customHeader.indexOf("form-") > -1) {
+                let elem = customHeader.split("-")[1];
+                customHeader = {
+                    "Content-Type" : "application/json",
+                    "Authorization" : "Bearer " + document.getElementById(elem).value 
+                }
+            } else {
+                headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
             }
-            headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
+            
         }
         return await axios.put(url, {data:param}, headerInfo);
     }
@@ -78,8 +86,15 @@ export default class DataHelper {
                     "Content-Type" : "application/json",
                     "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
                 }
+            } else if (customHeader.indexOf("form-") > -1) {
+                let elem = customHeader.split("-")[1];
+                customHeader = {
+                    "Content-Type" : "application/json",
+                    "Authorization" : "Bearer " + document.getElementById(elem).value 
+                }
+            } else {
+                headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
             }
-            headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
         }
         return await axios.delete(url, {data:param}, headerInfo);
     }
@@ -96,6 +111,12 @@ export default class DataHelper {
             customHeader = {
                 "Content-Type" : "application/json",
                 "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
+            }
+        } else if (customHeader.indexOf("form-") > -1) {
+            let elem = customHeader.split("-")[1];
+            customHeader = {
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + document.getElementById(elem).value 
             }
         } else {
             customHeader = {
@@ -125,8 +146,15 @@ export default class DataHelper {
                     "Content-Type" : "application/json",
                     "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
                 }
+            } else if (customHeader.indexOf("form-") > -1) {
+                let elem = customHeader.split("-")[1];
+                customHeader = {
+                    "Content-Type" : "application/json",
+                    "Authorization" : "Bearer " + document.getElementById(elem).value 
+                }
+            } else {
+                headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
             }
-            headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
         }
         return await axios.post(url, JSON.stringify(param), headerInfo);
     }
@@ -156,6 +184,14 @@ export default class DataHelper {
                 "Content-Type" : "application/json",
                 "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
             }
+        } else if (customHeader.indexOf("form-") > -1) {
+            let elem = customHeader.split("-")[1];
+            customHeader = {
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + document.getElementById(elem).value 
+            }
+        } else {
+            headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
         }
         return await axios.get(url, {params:params}, customHeader)
     }
@@ -172,6 +208,14 @@ export default class DataHelper {
                 "Content-Type" : "application/json",
                 "Authorization" : "Bearer " + this.getBakedCookie(this.COOKIE_NAME) 
             }
+        } else if (customHeader.indexOf("form-") > -1) {
+            let elem = customHeader.split("-")[1];
+            customHeader = {
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + document.getElementById(elem).value 
+            }
+        } else {
+            headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
         }
         return await axios.get(url, customHeader)
     }
