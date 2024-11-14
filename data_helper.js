@@ -185,6 +185,7 @@ export default class DataHelper {
      * 
      */
      async getWithParamFrom(url, params, customHeader = null) {
+        var headerInfo = {};
         if (customHeader == "auto") {
             customHeader = {
                 "Content-Type" : "application/json",
@@ -211,6 +212,7 @@ export default class DataHelper {
      * 
      */
     async getFrom(url, customHeader = null) {
+        var headerInfo = {};
         if (customHeader == "auto") {
             customHeader = {
                 "Content-Type" : "application/json",
