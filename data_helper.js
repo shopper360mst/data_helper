@@ -198,6 +198,13 @@ export default class DataHelper {
                 "Authorization" : "Bearer " + document.getElementById(elem).value 
             }
             headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
+         } else if (customHeader.indexOf("multipart-") > -1) {
+            let elem = customHeader.split("-")[1];
+            customHeader = {
+                "Content-Type" : "multipart/form-data",
+                "Authorization" : "Bearer " + document.getElementById(elem).value 
+            }
+            headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
         } else {
             headerInfo = { "timeout": this.TIMEOUT, "headers": customHeader };
         }
