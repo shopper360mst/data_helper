@@ -124,10 +124,11 @@ export default class DataHelper {
         } else {
             customHeader = {
                 'Content-Type': 'multipart/form-data',
+                "Authorization" : "Bearer " + document.getElementById(elem).value 
             };
         }
         return await axios.post(url, param , 
-            { "headers": customHeader }    
+            { "headers": customHeader }
         );
     }
 
